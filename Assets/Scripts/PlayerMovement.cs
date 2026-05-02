@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private float _moveDirection;
     private float _rotateDirection;
+    private bool _isRotation = true;
 
     private void Start()
     {
@@ -28,14 +29,17 @@ public class PlayerMovement : MonoBehaviour
     } //Шаблонно
     public void Rotate(InputAction.CallbackContext context)
     {
+        if (!_isRotation) _rotateDirection = 0;
         float type = context.ReadValue<float>();
-        if(context.canceled || type == 0)
+        if (context.canceled || type == 0)
         {
             _rotateDirection = 0;
+            _isRotation = true;
         }
         else
         {
             _rotateDirection = type;
+            _isRotation = false;
         }
     } // Шаблонно
 
@@ -49,10 +53,10 @@ public class PlayerMovement : MonoBehaviour
     } //Физика передвижения
     private void Update()
     {
-        if(_rotateDirection != 0)
+        if (_rotateDirection != 0)
         {
             float rotationZ = _rotateDirection * _speedRotate * Time.deltaTime;
             transform.Rotate(0, 0, rotationZ);
         }
     } //Повороты
-} 
+}
