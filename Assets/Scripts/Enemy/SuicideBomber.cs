@@ -1,67 +1,94 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SuicideBomber : MonoBehaviour
 {
     [Header("===Переменные взрывного монстра===")]
-    [SerializeField] private Enemy _this;
-    [SerializeField] private float _radiusWandering;
-    [SerializeField] private float _minDistanceToEnemy;
+    //[SerializeField] private float _radiusWandering;
+    [SerializeField] private float _distanceToEnemy;
     [SerializeField] private float _radiusSearchEnemy;
     [SerializeField] private float _cooldownSearchEnemy;
-    [SerializeField] private float _minDistanceActivateBomb;
+    //[SerializeField] private float _cooldownSearchPointWandering;
     [SerializeField] private float _damageBomb;
     [SerializeField] private float _radiusBlast;
-    [SerializeField] private float _cooldownSearchPointWandering;
 
     private GameObject _enemy;
     private NavMeshAgent _navMA;
-    private NavMeshPath path = new NavMeshPath();
-    private bool _isNewPoint = false;
-    private Vector3 _targetPosition;
+    //private bool _isNewPoint = false;
+    //private Vector3 _targetPosition;
     private float _timeCooldownSeartchEnemy = 0;
-    private float _timeCooldownSeartchWandering = 0;
+    //private float _timeCooldownSeartchWandering = 0;
+    //private Vector3 _lastTargetPosition;
 
-
+    private void OnEnable()
+    {
+    //    _isNewPoint = false;
+        _timeCooldownSeartchEnemy = 0;
+    //    _timeCooldownSeartchWandering = 0;
+        _enemy = null;
+    }
     private void Start()
     {
         _navMA = GetComponent<NavMeshAgent>();
+        _navMA.updateUpAxis = false;
+        _navMA.updateRotation = false;
     }
-    private Vector3 SearchNewPosition()
-    {
-        Vector2 direction = Random.insideUnitCircle;
-        Vector2 ofser = direction * _radiusWandering;
+    //private Vector3 SearchNewPosition()
+    //{
+    //    float randomX = Random.Range(this.transform.position.x - _radiusWandering, this.transform.position.x + _radiusWandering);
+    //    float randomY = Random.Range(this.transform.position.y - _radiusWandering, this.transform.position.y + _radiusWandering);
 
-        Vector3 targetPosition = this.transform.position + (Vector3)ofser;
-        return targetPosition;
-    }
+    //    Vector3 targetPosition = new Vector3(randomX, randomY, 0);
+    //    return targetPosition;
+    //}
     private void Update()
     {
-        if (_enemy == null && Time.time >= _timeCooldownSeartchEnemy+_cooldownSearchEnemy) SeartchEnemy();
-        else if(_enemy != null)
+        if (_enemy == null && Time.time >= _timeCooldownSeartchEnemy + _cooldownSearchEnemy) SeartchEnemy();
+        else if (_enemy != null)
         {
-            _isNewPoint = true;
-            bool point = Movement(_enemy.transform.position, _minDistanceActivateBomb);
+            //_isNewPoint = true;
+            bool point = Movement(_enemy.transform.position, _distanceToEnemy);
             if (point)
             {
                 Blast();
                 return;
             }
         }
-        if (!_isNewPoint && Time.time >= _timeCooldownSeartchWandering+_cooldownSearchPointWandering)
-        {
-            Vector3 targetPosition = SearchNewPosition();
-            NavMeshPath path = new NavMeshPath();
-            bool isPath = NavMesh.CalculatePath(this.transform.position, targetPosition, NavMesh.AllAreas, path);
-            if (isPath && path.status == NavMeshPathStatus.PathComplete)
-            {
-                _timeCooldownSeartchWandering = Time.time;
-                _isNewPoint = true;
-                _targetPosition = targetPosition;
-            }
-            else _isNewPoint = false;
-        }
-        else if (_isNewPoint && _enemy == null) Movement(_targetPosition, 0.5f);
+        //if (!_isNewPoint && Time.time >= _timeCooldownSeartchWandering + _cooldownSearchPointWandering)
+        //{
+        //    Debug.Log("1");
+        //   Vector3 targetPosition = SearchNewPosition();
+        //
+        //    NavMeshPath path = new NavMeshPath();
+        //    bool isPath = NavMesh.CalculatePath(this.transform.position, targetPosition, NavMesh.AllAreas, path);
+        //    Debug.Log(path.status);
+        //    if (isPath && path.status == NavMeshPathStatus.PathComplete)
+        //    {
+        //        Debug.Log("12");
+        //        _timeCooldownSeartchWandering = Time.time;
+        //        _isNewPoint = true;
+        //        Debug.Log(targetPosition);
+        //       _targetPosition = targetPosition;
+        //    }
+        //    else 
+        //    {
+        //        Debug.Log("13");
+        //        _isNewPoint = false;
+        //    }
+        //}
+        //else if (_isNewPoint && _enemy == null && _targetPosition != _lastTargetPosition)
+        //{
+        //    Debug.Log("2");
+        //    bool move = Movement(_targetPosition, _distanceToEnemy);
+        //    if (move)
+        //    {
+        //        Debug.Log("21");
+        //        _lastTargetPosition = _targetPosition;
+        //        _isNewPoint = false;
+        //        _timeCooldownSeartchWandering = Time.time;
+        //    }
+        //}
     }
     private bool Movement(Vector3 targetPosition, float distanceToTargetPosition)
     {
@@ -69,6 +96,7 @@ public class SuicideBomber : MonoBehaviour
         {
             return true;
         }
+        Debug.Log("31");
         _navMA.SetDestination(targetPosition);
         return false;
     }
@@ -79,7 +107,7 @@ public class SuicideBomber : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.CompareTag("player"))
+            if (hit.CompareTag("Player"))
             {
                 _enemy = hit.gameObject;
                 return;
@@ -102,6 +130,7 @@ public class SuicideBomber : MonoBehaviour
                 hit.GetComponent<Units>().TakeDamage(_damageBomb);
             }
         }
+        _enemy = null;
         this.gameObject.SetActive(false);
     }
 }

@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class PlayerStatistic : MonoBehaviour
 {
-    [SerializeField] private ScriptableObject _playerInfo;
+    [Header("===Характеристики игрока===")]
+    [SerializeField] private float _health;
+    [SerializeField] private float _armor;
+    [SerializeField] private float _speed;
 
     [SerializeField] private float _bonusHealth = 0;
     [SerializeField] private float _bonusArmor = 0;
@@ -15,6 +18,13 @@ public class PlayerStatistic : MonoBehaviour
     public float Health { get; private set; }
     public float Armor { get; private set; }
     public float Speed { get; private set; }
+
+    private void Start()
+    {
+        Health = _health;
+        Armor = _armor;
+        Speed = _speed;
+    }
 
     public void AddBonusHealth(float bonusHealth)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class BulletEnemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if(Time.time >= _timeLifetime+_lifetime) this.gameObject.SetActive(false);
+        if (Time.time >= _timeLifetime + _lifetime) this.gameObject.SetActive(false);
         transform.Translate(Vector2.right * _speed * Time.deltaTime);
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +22,8 @@ public class Bullet : MonoBehaviour
         if (collision != null)
         {
             this.gameObject.SetActive(false);
-            if(collision.gameObject.CompareTag("enemy")) collision.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+            if (collision.gameObject.CompareTag("Player")) collision.gameObject.GetComponent<PlayerStatistic>().TakeDamage(_damage);
+            else if(collision.gameObject.GetComponent("UnitsPlayer")) collision.gameObject.GetComponent<Units>().TakeDamage(_damage);
         }
     }
 }

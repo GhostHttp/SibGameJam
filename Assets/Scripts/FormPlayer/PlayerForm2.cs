@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerForm2 : MonoBehaviour
 {
     [Header("===Переменные лазерной формы===")]
+    [SerializeField] private Sprite _sprite;
     [SerializeField] private LineRenderer _lR;
     [SerializeField] private Transform _endpointLaser;
     [SerializeField] private Transform _attackPoint;
@@ -22,6 +23,7 @@ public class PlayerForm2 : MonoBehaviour
             _attack = false;
             _lR.enabled = false;
         }
+        else this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
     }
     public void Attack(InputAction.CallbackContext context)
     {
@@ -58,8 +60,7 @@ public class PlayerForm2 : MonoBehaviour
 
         if (hit.collider != null && Time.time >= _timeCooldown + _attackCooldown || Time.time <= _attackCooldown)
         {
-            //Обработка нанесения урона
-            Debug.Log($"Лазер попал в {hit.collider.gameObject.name}.");
+            if(hit.collider.CompareTag("enemy"))hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(_attackDamage);
             _timeCooldown = Time.time;
         }
     }

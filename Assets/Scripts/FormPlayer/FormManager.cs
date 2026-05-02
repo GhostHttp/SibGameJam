@@ -12,6 +12,13 @@ public class FormManager : MonoBehaviour
 
     private int _numberForm = 0;
     private float _cooldownTime = 0;
+    private void OnEnable()
+    {
+        AllDisable();
+        _playerForm1.Enable(true);
+        _numberForm = 0;
+        _cooldownTime = Time.time;
+    }
 
     public void Transformation1(InputAction.CallbackContext context)
     {

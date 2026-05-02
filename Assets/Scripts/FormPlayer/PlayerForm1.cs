@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerForm1 : MonoBehaviour
 {
     [Header("===Переменные стреляющей формы===")]
-    [SerializeField] private GameObject _prefabBullet;
+    [SerializeField] private Sprite _sprite;
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private GameObject _prefabBullet;
     [SerializeField] private Transform _parentBullet;
     [SerializeField] private int _poolBulletSize;
     [SerializeField] private float _attackCooldown;
@@ -23,6 +24,7 @@ public class PlayerForm1 : MonoBehaviour
         {
             _attack = false;
         }
+        else this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
     }
     public void Attack(InputAction.CallbackContext context)
     {

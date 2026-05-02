@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerForm4 : MonoBehaviour
 {
     [Header("===Переменные формы барьера===")]
+    [SerializeField] private Sprite _sprite;
     [SerializeField] private PlayerStatistic _player;
     [SerializeField] private GameObject _prefabUnits;
     [SerializeField] private Transform _parentUnits;
@@ -39,6 +40,7 @@ public class PlayerForm4 : MonoBehaviour
         }
         else
         {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
             if(_units.Count > 0) LoadUnits();
             _player.AddBonusArmor(_bonusArmor);
             _playerHealth = _player.Health;

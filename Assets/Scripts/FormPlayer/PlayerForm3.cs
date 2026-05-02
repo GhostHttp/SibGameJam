@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerForm3 : MonoBehaviour
 {
     [Header("===Переменные формы ближнего боя===")]
+    [SerializeField] private Sprite _sprite;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _attackDamage;
     [SerializeField] private Transform _attackPoint;
@@ -15,6 +16,7 @@ public class PlayerForm3 : MonoBehaviour
     public void Enable(bool enable)
     {
         _isEnabled = enable;
+        if(_isEnabled) this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
     }
     public void Attack(InputAction.CallbackContext context)
     {
@@ -29,8 +31,7 @@ public class PlayerForm3 : MonoBehaviour
 
         if (hit.collider != null)
         {
-            //Обработка нанесения урона
-            Debug.Log($"Укусил {hit.collider.gameObject.name}.");
+            if (hit.collider.CompareTag("enemy"))hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(_attackDamage);
         }
         _timeCooldown = Time.time;
     }

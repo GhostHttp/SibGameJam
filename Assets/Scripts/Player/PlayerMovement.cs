@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speedMove = 5;
     [SerializeField] private float _speedRotate = 5;
+    private PlayerStatistic _playerS;
     private Rigidbody2D _rb;
     private float _moveDirection;
     private float _rotateDirection;
@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _playerS = GetComponent<PlayerStatistic>();
         _rb = GetComponent<Rigidbody2D>();
     }
     public void Move(InputAction.CallbackContext context)
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveDirection != 0)
         {
-            Vector2 forward = transform.right * _speedMove * _moveDirection;
+            Vector2 forward = transform.right * _playerS.Speed * _moveDirection;
             _rb.linearVelocity = forward;
         }
     } //Физика передвижения

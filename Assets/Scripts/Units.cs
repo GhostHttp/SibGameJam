@@ -3,17 +3,13 @@ using UnityEngine.AI;
 
 public class Units : MonoBehaviour
 {
-    [SerializeField] private ScriptableObject _myState;
+
     [SerializeField] private float _radiusSearchEnemy;
     [SerializeField] private float _cooldownSearchEnemy;
     [SerializeField] private float _radiusBlast;
     [SerializeField] private float _distanceEnemy;
     [SerializeField] private float _damage;
     [SerializeField] private PlayerForm4 _pF4;
-
-    public float Health { get; private set; }
-    public float Armor { get; private set; }
-    public float Speed { get; private set; }
 
     private NavMeshAgent _navMA;
     private GameObject _enemy;
@@ -87,14 +83,6 @@ public class Units : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (damage <= 0) return;
-        if (damage - Armor <= 0) return;
-        Health -= damage - Armor;
-
-        if (Health <= 0)
-        {
-            Debug.Log($"Юниту нанесли {damage} урона и он погиб!");
-            _pF4.RemoveUnit(this.gameObject);
-            this.transform.gameObject.SetActive(false);
-        }
+        this.gameObject.SetActive(false);
     }
 }
