@@ -50,7 +50,11 @@ public class PlayerForm1 : MonoBehaviour
     {
         Debug.Log("3");
         GameObject obj = _bulletPool.GetObject();
-        if (!obj) return;
+        if (!obj)
+        {
+            Debug.Log("Объект пустой");
+            return;
+        }
         obj.transform.position = _attackPoint.position;
         obj.transform.rotation = this.transform.rotation;
         obj.SetActive(true);

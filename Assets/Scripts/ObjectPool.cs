@@ -35,7 +35,7 @@ namespace ObjectPool
         {
             foreach (GameObject obj in _objectPool)
             {
-                if (!obj.activeInHierarchy)
+                if (!obj.activeSelf)
                 {
                     obj.SetActive(true);
                     return obj;
