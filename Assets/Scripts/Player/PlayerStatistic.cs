@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatistic : MonoBehaviour
 {
@@ -144,6 +145,7 @@ public class PlayerStatistic : MonoBehaviour
         {
             Debug.Log($"Вам нанесли {damage} урона и вы погибли!");
             this.transform.gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
