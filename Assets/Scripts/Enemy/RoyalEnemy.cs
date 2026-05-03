@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class RoyalEnemy : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class RoyalEnemy : MonoBehaviour
 
     private void Update()
     {
+        Vector2 direction = (_player.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
         if (Time.time >= _timeCooldownSpawnEnemy + _cooldownSpawnEnemy && _countSpawnEnemy < _maxSpawnEnemy && _this.Health > _healthCountToMovement)
         {
             SpawnEnemy();

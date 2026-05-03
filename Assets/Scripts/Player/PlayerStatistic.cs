@@ -74,7 +74,7 @@ public class PlayerStatistic : MonoBehaviour
             Speed = setSpeed * _factorSpeed;
         }
     }
-    
+
     public void SetFactorHealth(float factorHealth)
     {
         if(factorHealth <= 0) return;
@@ -124,13 +124,13 @@ public class PlayerStatistic : MonoBehaviour
     {
         if (_factorArmor == 0)
         {
-            Armor -= _bonusArmor;
+            Speed -= _bonusSpeed;
         }
         else
         {
-            float setArmor = Armor / _factorArmor;
-            setArmor -= _bonusArmor;
-            Armor = setArmor * _factorArmor;
+            float setSpeed = Speed / _factorSpeed;
+            setSpeed -= _bonusSpeed;
+            Speed = setSpeed * _factorSpeed;
         }
     }
 

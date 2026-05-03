@@ -1,63 +1,62 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speedRotate = 5;
     private PlayerStatistic _playerS;
     private Rigidbody2D _rb;
-    private float _moveDirection;
-    private float _rotateDirection;
-    private bool _isRotation = true;
+    private float _moveYDirection;
+    private float _moveXDirection;
 
     private void Start()
     {
         _playerS = GetComponent<PlayerStatistic>();
         _rb = GetComponent<Rigidbody2D>();
     }
-    public void Move(InputAction.CallbackContext context)
+    public void MoveY(InputAction.CallbackContext context)
     {
         float type = context.ReadValue<float>();
         if (context.canceled || type == 0)
         {
-            _moveDirection = 0;
+            _moveYDirection = 0;
             _rb.linearVelocity = new Vector2(0, 0);
         }
         else
         {
-            _moveDirection = type;
+            _moveYDirection = type;
         }
     } //Шаблонно
-    public void Rotate(InputAction.CallbackContext context)
+    public void MoveX(InputAction.CallbackContext context)
     {
-        if (!_isRotation) _rotateDirection = 0;
         float type = context.ReadValue<float>();
         if (context.canceled || type == 0)
         {
-            _rotateDirection = 0;
-            _isRotation = true;
+            _moveXDirection = 0;
+            _rb.linearVelocity = new Vector2(0, 0);
         }
         else
         {
-            _rotateDirection = type;
-            _isRotation = false;
+            _moveXDirection = type;
         }
     } // Шаблонно
 
     private void FixedUpdate()
     {
-        if (_moveDirection != 0)
+        if (_moveYDirection != 0)
         {
-            Vector2 forward = transform.right * _playerS.Speed * _moveDirection;
-            _rb.linearVelocity = forward;
+            _rb.linearVelocity = new Vector2(_rb.linearVelocityX, _playerS.Speed*_moveYDirection);
+        }
+        if (_moveXDirection != 0)
+        {
+            _rb.linearVelocity = new Vector2(_playerS.Speed * _moveXDirection, _rb.linearVelocityY);
         }
     } //Физика передвижения
     private void Update()
     {
-        if (_rotateDirection != 0)
-        {
-            float rotationZ = _rotateDirection * _speedRotate * Time.deltaTime;
-            transform.Rotate(0, 0, rotationZ);
-        }
-    } //Повороты
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 direction = (targetPosition - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
 }
