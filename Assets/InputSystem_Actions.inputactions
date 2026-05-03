@@ -70,7 +70,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
+                    "name": "MoveY",
                     "type": "Value",
                     "id": "fe943a6c-3c69-4f8a-97fb-6ac7db8d4b51",
                     "expectedControlType": "Axis",
@@ -79,7 +79,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Rotation",
+                    "name": "MoveX",
                     "type": "Value",
                     "id": "4ceeb1c2-09ba-4534-af8c-2e3fadc54b23",
                     "expectedControlType": "Axis",
@@ -315,7 +315,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveY",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -326,7 +326,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveY",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -337,7 +337,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveY",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -348,29 +348,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "MoveX",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Positive",
                     "id": "0be2b945-54f4-4b71-9414-8a8237054cd4",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "MoveX",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "Negative",
                     "id": "ffa5520d-e1fa-41d8-ba11-c1d68cc84bb8",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "MoveX",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -432,7 +432,7 @@
                 {
                     "name": "",
                     "id": "679c6363-8833-4a2a-aa4b-a44ad347687d",
-                    "path": "<Keyboard>/space",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",

@@ -1565,7 +1565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8381d0c465ade4c4e9adfe3a02006f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  _speedRotate: 120
 --- !u!114 &1040790982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1623,7 +1622,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1040790980}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Move
+        m_MethodName: MoveY
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1639,7 +1638,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1040790980}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Rotate
+        m_MethodName: MoveX
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
