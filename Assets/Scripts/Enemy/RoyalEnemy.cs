@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class RoyalEnemy : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _spawnEnemy = new List<Transform>();
+    //[SerializeField] private List<Transform> _spawnEnemy = new List<Transform>();
     [SerializeField] private List<GameObject> _prefab = new List<GameObject>();
     [SerializeField] private float _radiusSpawnEnemy;
     [SerializeField] private float _cooldownSpawnEnemy;
@@ -24,6 +24,8 @@ public class RoyalEnemy : MonoBehaviour
     private void Start()
     {
         _navMA = GetComponent<NavMeshAgent>();
+        _navMA.updateUpAxis = false;
+        _navMA.updateRotation = false;
         _this = GetComponent<Enemy>();
     }
 

@@ -62,9 +62,9 @@ public class Units : MonoBehaviour
         {
             if (hit.CompareTag("enemy"))
             {
-                Debug.Log($"Взрывом нанесли урон врагу: {hit.gameObject.name}.");
                 hit.GetComponent<Enemy>().TakeDamage(_damage);
                 _pF4.RemoveUnit(this.gameObject);
+
             }
         }
         this.gameObject.SetActive(false);
