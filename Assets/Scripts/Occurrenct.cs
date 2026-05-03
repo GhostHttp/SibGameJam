@@ -71,6 +71,7 @@ public class Occurrenct : MonoBehaviour
         _player.RemoveBonusSpeed();
     }
 }
+[System.Serializable]
 class OccurrenctInfo
 {
     public string name;
